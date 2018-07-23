@@ -1,9 +1,5 @@
 package risc.iitbbs.intellirisc;
 
-
-
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.Camera;
@@ -19,7 +15,7 @@ public class HandleCamera extends SurfaceView implements SurfaceHolder.Callback 
     private SurfaceHolder surfaceHolder;
     private SurfaceView surfaceView;
 
-    public HandleCamera(Context context,SurfaceView mSurfaceView, Camera myCam) {
+    public HandleCamera(Context context, SurfaceView mSurfaceView, Camera myCam) {
         super(context);
         this.camera = myCam;
         this.surfaceView = mSurfaceView;
@@ -28,11 +24,10 @@ public class HandleCamera extends SurfaceView implements SurfaceHolder.Callback 
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-
     /**
+     * Configure camera parameters and start preview
      *
-     * @param surfaceHolder it holds the view
-     *                      and the following function display the live view that is recorded by camera
+     * @param surfaceHolder
      */
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -58,41 +53,39 @@ public class HandleCamera extends SurfaceView implements SurfaceHolder.Callback 
     }
 
     /**
-     *
-     * @param surfaceHolder
-     * @param i
-     * @param i1
-     * @param i2
-     * the following function reacts to suface change
+     * Reacts to surface change
      * it stops the preview before changing holding surface and then again
      * start the preview display
+     *
+     * @param surfaceHolder
+     * @param int1
+     * @param int2
+     * @param int3
      */
     @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        if (surfaceHolder.getSurface()==null)
-        {
+    public void surfaceChanged(SurfaceHolder surfaceHolder, int int1, int int2, int int3) {
+        if (surfaceHolder.getSurface() == null) {
             return;
         }
         try {
             camera.stopPreview();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         try {
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
-        }catch (IOException e)
-        {
-            Log.d("Error","error in surface changed"+e.getMessage());
+        } catch (IOException e) {
+            Log.d("Error", "error in surface changed" + e.getMessage());
+            
         }
 
     }
 
     /**
+     * Releases camera for other users when app's surface view is destroyed
      *
-     * @param surfaceHolder it holds the view
-     *                      and following function basically release your camera for uses,for other app when your suface
-     *                      get destroyed.
+     * @param surfaceHolder
      */
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
@@ -101,7 +94,3 @@ public class HandleCamera extends SurfaceView implements SurfaceHolder.Callback 
 
     }
 }
-
-
-
-
